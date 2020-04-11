@@ -15,7 +15,7 @@ export default class LogInOutButton extends React.Component<ILogInOutButton> {
     return (
       <Fragment>
         {loggedIn ?
-          <Button content='Log Out' onClick = {callbackLogOut} />
+          <Button content = 'Log Out' onClick = {callbackLogOut} />
           :
           <Button content = 'Log In' onClick = {callbackLogIn} />
         }
