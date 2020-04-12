@@ -6,6 +6,7 @@ import LogInOutButton from './LogInOutButton';
 import LoginModal from './LoginModal';
 import UserProfile from './UserProfile';
 import AlertMessage from './AlertMessage';
+import NavBar from './NavBar';
 
 export interface IAppProps {
 }
@@ -75,7 +76,8 @@ public render() {
   let { loginFormIsOpen, loggedIn, userNum, showingFailedLogin } = this.state;
   return (
     <Fragment>
-      <h1>Hello, world!</h1>
+      <NavBar
+        userNum={userNum} />
       <LogInOutButton
         loggedIn={loggedIn}
         callbackLogIn={this.onClickLogInButton}
