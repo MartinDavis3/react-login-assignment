@@ -5,6 +5,7 @@ import { IUserLogin } from '../models/userLogins'
 import LogInOutButton from './LogInOutButton';
 import LoginModal from './LoginModal';
 import UserProfile from './UserProfile';
+import AlertMessage from './AlertMessage';
 
 export interface IAppProps {
 }
@@ -14,6 +15,7 @@ export interface IState {
   loginFormIsOpen: boolean;
   loggedIn: boolean;
   userNum: number;
+  showingFailedLogin: boolean;
 }
 
 export default class App extends React.Component<IAppProps, IState> {
@@ -30,6 +32,7 @@ export default class App extends React.Component<IAppProps, IState> {
       loginFormIsOpen: false,
       loggedIn: false,
       userNum: -1,
+      showingFailedLogin: false
     }
   }
 
@@ -47,9 +50,14 @@ export default class App extends React.Component<IAppProps, IState> {
     if ( foundUser >= 0  ) {
       this.setState( {
         loggedIn: true,
-        userNum: foundUser
-      } );
+        userNum: foundUser })
+    } else {
+      this.setState( {showingFailedLogin: true} );
     }
+  }
+
+  public onClickOkButton = () => {
+    this.setState( {showingFailedLogin: false} );
   }
 
   private isValidUser = (currUserInp:string, currPassInp: string): number => {
@@ -64,7 +72,7 @@ export default class App extends React.Component<IAppProps, IState> {
   }
 
 public render() {
-  let { loginFormIsOpen, loggedIn, userNum } = this.state;
+  let { loginFormIsOpen, loggedIn, userNum, showingFailedLogin } = this.state;
   return (
     <Fragment>
       <h1>Hello, world!</h1>
@@ -75,6 +83,9 @@ public render() {
       <LoginModal
         loginFormIsOpen={loginFormIsOpen}
         onClickSubmitButton={this.onClickSubmitButton} />
+      <AlertMessage
+          showingFailedLogin={showingFailedLogin}
+          onClickOkButton={this.onClickOkButton} />
       { loggedIn ?
         <UserProfile
           userNum={userNum} />
