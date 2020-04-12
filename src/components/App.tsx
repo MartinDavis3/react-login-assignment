@@ -13,6 +13,7 @@ export interface IState {
   loginFormIsOpen: boolean;
   loggedIn: boolean;
   currUser: string;
+  currPass: string;
 }
 
 export default class App extends React.Component<IAppProps, IState> {
@@ -28,7 +29,8 @@ export default class App extends React.Component<IAppProps, IState> {
       ],
       loginFormIsOpen: false,
       loggedIn: false,
-      currUser: 'default'
+      currUser: 'default',
+      currPass: 'default'
     }
   }
 
@@ -41,12 +43,15 @@ export default class App extends React.Component<IAppProps, IState> {
     this.setState( { loggedIn: false} )
   }
 
-  public onClickLoginFormClose = () => {
-    this.setState( {loginFormIsOpen: false} )
+  public onClickSubmitButton = (currUserInp: string, currPassInp: string) => {
+    this.setState( {
+      currUser: currUserInp,
+      currPass: currPassInp,
+      loginFormIsOpen: false} );
   }
 
 public render() {
-  let { userLogins, loginFormIsOpen, loggedIn, currUser } = this.state;
+  let { userLogins, loginFormIsOpen, loggedIn, currUser, currPass } = this.state;
   return (
     <Fragment>
       <h1>Hello, world!</h1>
@@ -56,7 +61,7 @@ public render() {
         callbackLogOut={this.onClickLogOutButton} />
       <LoginModal
         loginFormIsOpen={loginFormIsOpen}
-        callbackClose={this.onClickLoginFormClose} />
+        onClickSubmitButton={this.onClickSubmitButton} />
     </Fragment>
   );
 }
