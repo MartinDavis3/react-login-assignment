@@ -4,6 +4,7 @@ import { Fragment } from 'react'
 import { IUserLogin } from '../models/userLogins'
 import LogInOutButton from './LogInOutButton';
 import LoginModal from './LoginModal';
+import UserProfile from './UserProfile';
 
 export interface IAppProps {
 }
@@ -12,7 +13,7 @@ export interface IState {
   userLogins: IUserLogin[];
   loginFormIsOpen: boolean;
   loggedIn: boolean;
-  userNum: number | undefined;
+  userNum: number;
 }
 
 export default class App extends React.Component<IAppProps, IState> {
@@ -28,7 +29,7 @@ export default class App extends React.Component<IAppProps, IState> {
       ],
       loginFormIsOpen: false,
       loggedIn: false,
-      userNum: undefined,
+      userNum: -1,
     }
   }
 
@@ -42,9 +43,8 @@ export default class App extends React.Component<IAppProps, IState> {
 
   public onClickSubmitButton = (currUserInp: string, currPassInp: string) => {
     this.setState( { loginFormIsOpen: false } );
-    let foundUser: number | undefined = undefined;
-    foundUser = this.isValidUser( currUserInp, currPassInp);
-    if ( !(foundUser === undefined  ) ) {
+    let foundUser =this.isValidUser( currUserInp, currPassInp);
+    if ( foundUser >= 0  ) {
       this.setState( {
         loggedIn: true,
         userNum: foundUser
@@ -52,10 +52,9 @@ export default class App extends React.Component<IAppProps, IState> {
     }
   }
 
-  private isValidUser = (currUserInp:string, currPassInp: string): number | undefined => {
+  private isValidUser = (currUserInp:string, currPassInp: string): number => {
     let {userLogins} = this.state;
-    var match: number | undefined;
-    match = undefined;
+    var match = -1;
     for ( let i = 0; i < userLogins.length; i++ ) {
       if ( currUserInp === userLogins[i].username && currPassInp === userLogins[i].password ) {
         match = i;
@@ -65,7 +64,7 @@ export default class App extends React.Component<IAppProps, IState> {
   }
 
 public render() {
-  let { loginFormIsOpen, loggedIn } = this.state;
+  let { loginFormIsOpen, loggedIn, userNum } = this.state;
   return (
     <Fragment>
       <h1>Hello, world!</h1>
@@ -76,6 +75,13 @@ public render() {
       <LoginModal
         loginFormIsOpen={loginFormIsOpen}
         onClickSubmitButton={this.onClickSubmitButton} />
+      { loggedIn ?
+        <UserProfile
+          userNum={userNum} />
+        :
+        <div>
+        </div>
+      }
     </Fragment>
   );
 }
