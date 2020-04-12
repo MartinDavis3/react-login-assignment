@@ -1,8 +1,6 @@
 import React from 'react';
 import { Fragment } from 'react';
-// import { Button } from 'semantic-ui-react';
 import '../styles/LoginModal.css'
-// import LogInOutButton from './LogInOutButton';
 import LoginForm from './LoginForm';
 
 export interface ILoginModal {
@@ -20,14 +18,10 @@ export default class LoginModal extends React.Component<ILoginModal> {
             {loginFormIsOpen ?
                 <div className = "modal-show">
                     <LoginForm onClickSubmitButton={onClickSubmitButton} />
-                    {/* <h1>Login Form</h1> */}
-                    {/* <Button content = 'Close' onClick = {callbackClose} /> */}
                 </div>
                 :
                 <div className = "modal-hide">
                     <LoginForm onClickSubmitButton={onClickSubmitButton} />
-                    {/* <h1>Login Form</h1> */}
-                    {/* <Button content = 'Close' onClick = {callbackClose} /> */}
                 </div>
             }
         </Fragment>

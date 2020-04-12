@@ -12,8 +12,7 @@ export interface IState {
   userLogins: IUserLogin[];
   loginFormIsOpen: boolean;
   loggedIn: boolean;
-  currUser: string;
-  currPass: string;
+  userNum: number | undefined;
 }
 
 export default class App extends React.Component<IAppProps, IState> {
@@ -29,14 +28,12 @@ export default class App extends React.Component<IAppProps, IState> {
       ],
       loginFormIsOpen: false,
       loggedIn: false,
-      currUser: 'default',
-      currPass: 'default'
+      userNum: undefined,
     }
   }
 
   public onClickLogInButton = () => {
     this.setState( { loginFormIsOpen: true } );
-    // this.setState( { loggedIn: true } )
   }
   
   public onClickLogOutButton = () => {
@@ -45,24 +42,26 @@ export default class App extends React.Component<IAppProps, IState> {
 
   public onClickSubmitButton = (currUserInp: string, currPassInp: string) => {
     this.setState( { loginFormIsOpen: false } );
-    if (this.isValidUser( currUserInp, currPassInp ) ) {
+    let foundUser: number | undefined = undefined;
+    foundUser = this.isValidUser( currUserInp, currPassInp);
+    if ( !(foundUser === undefined  ) ) {
       this.setState( {
         loggedIn: true,
-        currUser: currUserInp,
-        currPass: currPassInp
+        userNum: foundUser
       } );
     }
   }
 
-  private isValidUser = (currUserInp:string, currPassInp: string): boolean => {
-    let {userLogins} = this.state
-    var matchFound = false
+  private isValidUser = (currUserInp:string, currPassInp: string): number | undefined => {
+    let {userLogins} = this.state;
+    var match: number | undefined;
+    match = undefined;
     for ( let i = 0; i < userLogins.length; i++ ) {
       if ( currUserInp === userLogins[i].username && currPassInp === userLogins[i].password ) {
-        matchFound = true;
+        match = i;
       }
     }
-    return matchFound;
+    return match;
   }
 
 public render() {
@@ -82,5 +81,3 @@ public render() {
 }
 
 }
-
-// export default App;
