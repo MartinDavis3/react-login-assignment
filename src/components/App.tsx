@@ -46,9 +46,9 @@ export default class App extends React.Component<IAppProps, IState> {
       userNum: -1,
       showingFailedLogin: false,
       menuItems: [
-        [{key:'1',name:'Home'},{key:'2',name:"Alice's Page"},{key:'3',name:'Introduction to JavaScript'},{key:'4',name:"Beginner's ChartJS"}],
-        [{key:'1',name:'Home'},{key:'2',name:"Bob's Page"},{key:'3',name:'Advanced C#'},{key:'4',name:"In-Depth .NET"}],
-        [{key:'1',name:'Home'},{key:'2',name:"Charlie's Page"},{key:'3',name:'TypeScript Reference'},{key:'4',name:"React Reference"}]
+        [{key:'1',name:'Home'},{key:'2',name:"Page for Alice"},{key:'3',name:'Introduction to JavaScript'},{key:'4',name:"ChartJS for Beginners"}],
+        [{key:'1',name:'Home'},{key:'2',name:"Page for Bob"},{key:'3',name:'Advanced C Sharp'},{key:'4',name:"Improve with DOT NET"}],
+        [{key:'1',name:'Home'},{key:'2',name:"Page for Charlie"},{key:'3',name:'TypeScript Reference'},{key:'4',name:"React Reference"}]
       ]
     }
 
@@ -133,6 +133,6 @@ export default class App extends React.Component<IAppProps, IState> {
       </Fragment>
     );
   }
-  
+
 }
 

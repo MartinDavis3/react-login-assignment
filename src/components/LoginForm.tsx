@@ -25,7 +25,16 @@ export default class LoginForm extends React.Component<ILoginFormProps, IState> 
   }
 
   private onPassFieldChange = (event: React.FormEvent<HTMLInputElement>) => {
-    this.setState( { currPass: event.currentTarget.value} )
+    //Process input to hide password.
+    let passInp = event.currentTarget.value;
+    let newCurrPass = this.state.currPass;
+    if ( passInp.length > newCurrPass.length ) {
+      event.currentTarget.value = passInp.slice(0,passInp.length-1) + String.fromCharCode(8226)
+      newCurrPass += passInp.slice(-1);
+    } else {
+      newCurrPass = newCurrPass.slice(0,newCurrPass.length-1);
+    }
+    this.setState( { currPass: newCurrPass} )
   }
 
   public render() {
