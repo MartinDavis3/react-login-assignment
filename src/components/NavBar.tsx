@@ -4,46 +4,18 @@ import { IMenuItem } from '../models/menuItem';
 import { Menu } from 'semantic-ui-react';
 
 export interface INavBarProps {
-  userNum: number;
+  userMenuItems: IMenuItem[];
 }
 
-interface INavBarState {
-  menuItems: IMenuItem[];
-}
-
-export default class NavBar extends React.Component<INavBarProps, INavBarState> {
-
-  constructor(props: INavBarProps) {
-    super(props);
-
-    this.state = {
-      menuItems: [
-        {
-          key: 'home',
-          name: 'Home'
-        },
-        {
-          key: 'profile',
-          name: 'Profile Page' 
-        },
-        {
-          key: 'langRef',
-          name: 'Language Reference'
-        },
-        {
-          key: 'frameworkRef',
-          name: 'Framework Reference'
-        }
-      ]
-    }
-  }
+export default class NavBar extends React.Component<INavBarProps> {
 
   public render() {
-    const { menuItems } = this.state;
+    const { userMenuItems } = this.props;
     return (
       <Fragment>
-        <Menu items={menuItems} />
+        <Menu items={userMenuItems} />
       </Fragment>
     );
   }
+  
 }

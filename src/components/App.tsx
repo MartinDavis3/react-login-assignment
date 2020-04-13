@@ -1,7 +1,8 @@
 import React from 'react';
-import '../styles/App.css';
 import { Fragment } from 'react'
+import '../styles/App.css';
 import { IUserLogin } from '../models/userLogins'
+import { IMenuItem } from '../models/menuItem';
 import LogInOutButton from './LogInOutButton';
 import LoginModal from './LoginModal';
 import UserProfile from './UserProfile';
@@ -17,6 +18,7 @@ export interface IState {
   loggedIn: boolean;
   userNum: number;
   showingFailedLogin: boolean;
+  menuItems: IMenuItem[][];
 }
 
 export default class App extends React.Component<IAppProps, IState> {
@@ -28,23 +30,48 @@ export default class App extends React.Component<IAppProps, IState> {
         {
           username: 'user1',
           password: 'pass1'
+        },
+        {
+          username: 'user2',
+          password: 'pass2'
+        },
+        {
+          username: 'user3',
+          password: 'pass3'
         }
       ],
       loginFormIsOpen: false,
       loggedIn: false,
+      // userNum is set to -1 when nobody is logged in.
       userNum: -1,
-      showingFailedLogin: false
+      showingFailedLogin: false,
+      menuItems: [
+        [{key:'1',name:'Home'},{key:'2',name:"Alice's Page"},{key:'3',name:'Introduction to JavaScript'},{key:'4',name:"Beginner's ChartJS"}],
+        [{key:'1',name:'Home'},{key:'2',name:"Bob's Page"},{key:'3',name:'Advanced C#'},{key:'4',name:"In-Depth .NET"}],
+        [{key:'1',name:'Home'},{key:'2',name:"Charlie's Page"},{key:'3',name:'TypeScript Reference'},{key:'4',name:"React Reference"}]
+      ]
     }
   }
 
   public onClickLogInButton = () => {
-    this.setState( { loginFormIsOpen: true } );
+    // Test for any modal forms open to prevent button operation.
+    if ( !(this.state.loginFormIsOpen || this.state.showingFailedLogin) ) {
+      this.setState(
+        { loginFormIsOpen: true, }
+      );
+    }
   }
   
   public onClickLogOutButton = () => {
-    this.setState( { loggedIn: false} );
+    this.setState(
+      { 
+        loggedIn: false,
+        userNum: -1
+      }
+    );
   }
 
+  // Submit from Login Form.
   public onClickSubmitButton = (currUserInp: string, currPassInp: string) => {
     this.setState( { loginFormIsOpen: false } );
     let foundUser =this.isValidUser( currUserInp, currPassInp);
@@ -57,6 +84,7 @@ export default class App extends React.Component<IAppProps, IState> {
     }
   }
 
+  // Okay from login fail alert form.
   public onClickOkButton = () => {
     this.setState( {showingFailedLogin: false} );
   }
@@ -72,31 +100,37 @@ export default class App extends React.Component<IAppProps, IState> {
     return match;
   }
 
-public render() {
-  let { loginFormIsOpen, loggedIn, userNum, showingFailedLogin } = this.state;
-  return (
-    <Fragment>
-      <NavBar
-        userNum={userNum} />
-      <LogInOutButton
-        loggedIn={loggedIn}
-        callbackLogIn={this.onClickLogInButton}
-        callbackLogOut={this.onClickLogOutButton} />
-      <LoginModal
-        loginFormIsOpen={loginFormIsOpen}
-        onClickSubmitButton={this.onClickSubmitButton} />
-      <AlertMessage
-          showingFailedLogin={showingFailedLogin}
-          onClickOkButton={this.onClickOkButton} />
-      { loggedIn ?
-        <UserProfile
-          userNum={userNum} />
-        :
-        <div>
-        </div>
-      }
-    </Fragment>
-  );
+  public render() {
+    let { loginFormIsOpen, loggedIn, userNum, showingFailedLogin, menuItems } = this.state;
+    let userMenuItems: IMenuItem[];
+    if ( userNum >= 0 ) {
+      userMenuItems = menuItems[userNum];
+    } else {
+      userMenuItems = [{key:'1',name:'Home'}];
+    }
+    return (
+      <Fragment>
+        <NavBar
+          userMenuItems={userMenuItems} />
+        <LogInOutButton
+          loggedIn={loggedIn}
+          callbackLogIn={this.onClickLogInButton}
+          callbackLogOut={this.onClickLogOutButton} />
+        <LoginModal
+          loginFormIsOpen={loginFormIsOpen}
+          onClickSubmitButton={this.onClickSubmitButton} />
+        <AlertMessage
+            showingFailedLogin={showingFailedLogin}
+            onClickOkButton={this.onClickOkButton} />
+        { loggedIn ?
+          <UserProfile
+            userNum={userNum} />
+          :
+          <div>
+          </div>
+        }
+      </Fragment>
+    );
+  }
 }
 
-}

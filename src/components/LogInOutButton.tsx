@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Button } from 'semantic-ui-react';
 import { Fragment } from 'react';
+import { Button } from 'semantic-ui-react';
 
 export interface ILogInOutButton {
   callbackLogIn: () => void;
@@ -22,4 +22,5 @@ export default class LogInOutButton extends React.Component<ILogInOutButton> {
       </Fragment>
     )
   }
+  
 }

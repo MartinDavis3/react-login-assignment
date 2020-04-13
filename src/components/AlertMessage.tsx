@@ -15,7 +15,7 @@ export default class AlertMessage extends React.Component<IAlertMessage> {
         <Fragment>
             {showingFailedLogin ?
                 <div>
-                    <h2>Username and/or Password did not match a valid user.</h2>
+                    <h2>Username and/or Password did not match a Valid User.</h2>
                     <Button content='OK' onClick={() => onClickOkButton()} />
                 </div>
                 :

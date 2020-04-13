@@ -18,10 +18,24 @@ export default class UserProfile extends React.Component<IUserProfileProps, IUse
       userProfiles: [
         {
           username: 'user1',
-          name: 'Bob',
+          name: 'Alice',
           level: 'Begginer',
           favLang: 'JavaScript',
           favFramework: 'ChartJS'
+        },
+        {
+          username: 'user2',
+          name: 'Bob',
+          level: 'Intermediate',
+          favLang: 'C#',
+          favFramework: '.NET'
+        },
+        {
+          username: 'user3',
+          name: 'Charlie',
+          level: 'Advanced',
+          favLang: 'TypeScript',
+          favFramework: 'React'
         }
       ]
     }
@@ -32,6 +46,7 @@ export default class UserProfile extends React.Component<IUserProfileProps, IUse
     const { username, name, level, favLang, favFramework } = userProfiles[this.props.userNum];
     return (
       <div>
+        <p></p>
         <p>Username: {username}</p>
         <p>Name: {name}</p>
         <p>Level: {level}</p>
@@ -40,4 +55,5 @@ export default class UserProfile extends React.Component<IUserProfileProps, IUse
       </div>
     );
   }
+  
 }
