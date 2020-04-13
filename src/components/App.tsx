@@ -1,7 +1,7 @@
 import React from 'react';
 import { Fragment } from 'react'
 import '../styles/App.css';
-import { IUserLogin } from '../models/userLogins'
+import { IUserLogin } from '../models/userLogin'
 import { IMenuItem } from '../models/menuItem';
 import LogInOutButton from './LogInOutButton';
 import LoginModal from './LoginModal';
@@ -51,6 +51,7 @@ export default class App extends React.Component<IAppProps, IState> {
         [{key:'1',name:'Home'},{key:'2',name:"Charlie's Page"},{key:'3',name:'TypeScript Reference'},{key:'4',name:"React Reference"}]
       ]
     }
+
   }
 
   public onClickLogInButton = () => {
@@ -132,5 +133,6 @@ export default class App extends React.Component<IAppProps, IState> {
       </Fragment>
     );
   }
+  
 }
 

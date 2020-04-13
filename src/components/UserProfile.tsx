@@ -39,6 +39,7 @@ export default class UserProfile extends React.Component<IUserProfileProps, IUse
         }
       ]
     }
+    
   }
 
   public render() {
@@ -55,5 +56,5 @@ export default class UserProfile extends React.Component<IUserProfileProps, IUse
       </div>
     );
   }
-  
+
 }

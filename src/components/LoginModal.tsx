@@ -24,4 +24,5 @@ export default class LoginModal extends React.Component<ILoginModal> {
         </Fragment>
         )
     }
+    
 }

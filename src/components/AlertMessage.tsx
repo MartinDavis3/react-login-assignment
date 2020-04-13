@@ -25,4 +25,5 @@ export default class AlertMessage extends React.Component<IAlertMessage> {
         </Fragment>
         )
     }
+    
 }
