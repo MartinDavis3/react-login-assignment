@@ -1,8 +1,11 @@
 import * as React from 'react';
-import { IUserProfile } from '../models/userProfile'
+import { Fragment } from 'react';
+import { IUserProfile } from '../models/userProfile';
+
 
 export interface IUserProfileProps {
   userNum: number;
+  loggedIn: boolean;
 }
 
 interface IUserProfileState {
@@ -44,17 +47,24 @@ export default class UserProfile extends React.Component<IUserProfileProps, IUse
 
   public render() {
     const { userProfiles } = this.state;
-    const { username, name, level, favLang, favFramework } = userProfiles[this.props.userNum];
-    return (
-      <div>
-        <p></p>
-        <p>Username: {username}</p>
-        <p>Name: {name}</p>
-        <p>Level: {level}</p>
-        <p>Favourite Language: {favLang}</p>
-        <p>Favourite Framework: {favFramework}</p>
-      </div>
-    );
+    const { userNum, loggedIn } = this.props;
+    if ( loggedIn ) {
+      // Note userProfiles deconstruction has to be inside "if block" because it will
+      // fail if userNum is -1 (nobody logged in).
+      const { username, name, level, favLang, favFramework } = userProfiles[userNum];
+      return (
+        <Fragment>
+          <p></p>
+          <p>Username: {username}</p>
+          <p>Name: {name}</p>
+          <p>Level: {level}</p>
+          <p>Favourite Language: {favLang}</p>
+          <p>Favourite Framework: {favFramework}</p>
+        </Fragment>
+      );
+    } else {
+      return( null );
+    }
   }
 
 }

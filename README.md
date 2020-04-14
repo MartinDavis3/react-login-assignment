@@ -1,3 +1,15 @@
+ASSIGNMENT: REACT LOGIN
+
+Completed Assignment:
+
+Click the Log In button to display the login form.
+
+There are three possible users, simply:
+  user1 pass1
+  user2 pass2
+  user3 pass3
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

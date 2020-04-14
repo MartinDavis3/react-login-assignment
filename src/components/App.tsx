@@ -1,7 +1,7 @@
 import React from 'react';
-import { Fragment } from 'react'
+import { Fragment } from 'react';
 import '../styles/App.css';
-import { IUserLogin } from '../models/userLogin'
+import { IUserLogin } from '../models/userLogin';
 import { IMenuItem } from '../models/menuItem';
 import LogInOutButton from './LogInOutButton';
 import LoginModal from './LoginModal';
@@ -55,10 +55,10 @@ export default class App extends React.Component<IAppProps, IState> {
   }
 
   public onClickLogInButton = () => {
-    // Test for any modal forms open to prevent button operation.
+    // Test for any "modal" forms open to prevent button operation.
     if ( !(this.state.loginFormIsOpen || this.state.showingFailedLogin) ) {
       this.setState(
-        { loginFormIsOpen: true, }
+        { loginFormIsOpen: true }
       );
     }
   }
@@ -75,24 +75,24 @@ export default class App extends React.Component<IAppProps, IState> {
   // Submit from Login Form.
   public onClickSubmitButton = (currUserInp: string, currPassInp: string) => {
     this.setState( { loginFormIsOpen: false } );
-    let foundUser =this.isValidUser( currUserInp, currPassInp);
+    let foundUser = this.isValidUser( currUserInp, currPassInp );
     if ( foundUser >= 0  ) {
       this.setState( {
         loggedIn: true,
-        userNum: foundUser })
+        userNum: foundUser } )
     } else {
-      this.setState( {showingFailedLogin: true} );
+      this.setState( { showingFailedLogin: true } );
     }
   }
 
   // Okay from login fail alert form.
   public onClickOkButton = () => {
-    this.setState( {showingFailedLogin: false} );
+    this.setState( { showingFailedLogin: false } );
   }
 
   private isValidUser = (currUserInp:string, currPassInp: string): number => {
-    let {userLogins} = this.state;
-    var match = -1;
+    let { userLogins } = this.state;
+    let match = -1;
     for ( let i = 0; i < userLogins.length; i++ ) {
       if ( currUserInp === userLogins[i].username && currPassInp === userLogins[i].password ) {
         match = i;
@@ -121,15 +121,11 @@ export default class App extends React.Component<IAppProps, IState> {
           loginFormIsOpen={loginFormIsOpen}
           onClickSubmitButton={this.onClickSubmitButton} />
         <AlertMessage
-            showingFailedLogin={showingFailedLogin}
-            onClickOkButton={this.onClickOkButton} />
-        { loggedIn ?
-          <UserProfile
-            userNum={userNum} />
-          :
-          <div>
-          </div>
-        }
+          showingFailedLogin={showingFailedLogin}
+          onClickOkButton={this.onClickOkButton} />
+        <UserProfile
+          userNum={userNum}
+          loggedIn={loggedIn} />
       </Fragment>
     );
   }
